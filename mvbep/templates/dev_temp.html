@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<title>development_report</title>
+<head>
+</head>
+<style>
+    body {
+    font-family: "Open Sans", sans-serif;
+  }
+  table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin:0;
+    padding:0;
+    width: 100%;
+  }
+  table tr {
+    border: 1px solid #ddd;
+    padding: 5px;
+  }
+  table th, table td {
+    padding: 10px;
+    text-align: center;
+  }
+  table th {
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  @media screen and (max-width: 600px) {
+    table {
+      border: 0;
+    }
+    table thead {
+      display: none;
+    }
+    table tr {
+      border-bottom: 2px solid #ddd;
+      display: block;
+      margin-bottom: 10px;
+    }
+    table td {
+      border-bottom: 1px dotted #ccc;
+      display: block;
+      font-size: 13px;
+      text-align: right;
+    }
+    table td:last-child {
+      border-bottom: 0;
+    }
+    table td:before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+    </style>
+<body>
+<h1>Measurement and Verification Baseline Energy Prridiction (MVBEP) Model Development Summary</h1>
+<div>
+    This report summarizes the process of developing a MVBEP model and outputs the main highlights. Created on <attrib_time_>.
+</div>
+
+<br> <br>
+
+<h2>1. Initialization</h2>
+<h3>1.1 Data Description</h3>
+<h4>1.1.1 Metadata</h4>
+The initialization process was started by the following inputs:
+
+<ul>
+    <li>A historical data that extends from attrib_start_ to attrib_end_ with a frequency of <attrib_freq_>.</li>
+    <li>The number of observations is <attrib_observ_count_>. </li>
+    <li>The number of passed features is <attrib_feat_count_>. </li>
+    <li>The building coountry code is <attrib_country_code_>. </li>
+    <li>The occupancy schedule is <attrib_occup_schedule>. </li>
+</ul>
+
+<h4>1.1.2 Descriptive Summary</h4>
+<attrib_descrip_summ_>
+<br><br>
+
+<h3>1.2 Data Validation</h3>
+This subsection validates the passed data based on the selected thresholds.
+
+<h4>1.2.1 Timestamps</h4>
+<attrib_validation_timestamps_>
+
+
+<h4>1.2.2 Remaining Features</h4>
+<attrib_validation_features_>
+<br><br>
+
+<h3>1.3 Exploratory Data Analysis</h3>
+<h4>1.4.1 Energy and outdoor dry-bulb temperature </h4>
+<attrib_eda_energy_temp_>
+
+<h4>1.4.2 Energy and invalid values</h4>
+<attrib_eda_energy_invalid_>
+
+<h4>1.4.3 Outdoor dry-bulb temperature and invalid values</h4>
+<attrib_eda_temp_invalid_>
+<br><br>
+
+
+
+<h2>2. Transformation </h2>
+<h3>2.1 Occupancy Schedule </h3>
+<attrib_occup_schedule_>
+<br>   
+
+<h3>2.2 Country Holiday </h3>
+The following holidays were created using holiday library on Python.
+<attrib_holidays_>
+<br><br><br><br>
+
+<pre><code>
+
+</code></pre>
+
+<h2>3. Model Development </h2>
+This section lists the trained and evaluated machine learning models in building a MVBEP model.
+The following are the passed parameters for the method develop_mvbep():
+<ul>
+<li>Hyperparameter tuning was <attrib_dev_hyperparam_state_>. </li>
+<li>The test set size is <attrib_dev_test_size_>. </li>
+</ul>
+ 
+<h3>3.1 Model Evaluation Results</h3>
+<attrib_model_eval_table_>
+
+<h3>3.2 Actual Vs Predicted Energy consumption</h3>
+<attrib_model_eval_plot_>
+
+
+
+<h3>3.2 Best Model</h3>
+
+Based on the metric <attrib_best_model_metric_>, the <attrib_best_model_name_> was selected with a <attrib_best_model_freq_> frequency. 
+<attrib_best_model_describe_>
+
+<h4> 3.2.1 Hyperparameter Tuning Process </h4>
+<attrib_best_model_hyperparam_process_>
+
+<h4> 3.2.2 Model Interpretation </h4>
+
+<attrib_best_model_fig_shap_summary>
+
+<attrib_best_model_fig_temp_effect_vs_energy>
+
+<attrib_best_model_fig_features_timeseries_effect>
+
+
+
+
+</body>
+</html>
+
+
+
+
+

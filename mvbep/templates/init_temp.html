@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<title>Initialization Report</title>
+<head>
+</head>
+<style>
+  body {
+  font-family: "Open Sans", sans-serif;
+}
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin:0;
+  padding:0;
+  width: 100%;
+}
+table tr {
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+table th, table td {
+  padding: 10px;
+  text-align: center;
+}
+table th {
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+  table thead {
+    display: none;
+  }
+  table tr {
+    border-bottom: 2px solid #ddd;
+    display: block;
+    margin-bottom: 10px;
+  }
+  table td {
+    border-bottom: 1px dotted #ccc;
+    display: block;
+    font-size: 13px;
+    text-align: right;
+  }
+  table td:last-child {
+    border-bottom: 0;
+  }
+  table td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+  </style>
+<body>
+<h1>Initialization Report</h1>
+<div>
+    This report summarizes the process of the an MVBEP model intitialization and outputs the main highlights. Created on attrib_time_.
+</div>
+
+<h2>1. Data Description</h2>
+<h3>1.1 Metadata</h3>
+<ul>
+  <li>The historical data extends from attrib_start_ to attrib_end_ with a frequency of attrib_freq_.</li>
+  <li>The number of observations is attrib_observ_count_. </li>
+  <li>The number of passed features is attrib_feat_count_</li>
+</ul>
+<br>
+
+<h3>1.2 Descriptive summary</h3>
+attrib_descrip_summ_
+
+
+
+<h2>2. Data Validation</h2>
+<div></div>
+<h3>2.1 Timestamps</h3>
+attrib_validation_timestamps_
+
+
+<h3>2.2 Remaining Features</h3>
+attrib_validation_features_
+<br><br><br>
+
+<h2>3. Exploratory Data Analysis</h2>
+
+<h3>3.1 Energy and outdoor dry-bulb temperature</h3>
+attrib_eda_energy_temp_
+
+<h3>3.2 Energy consumption and invalid valuse</h3>
+attrib_eda_energy_invalid_
+
+
+<h3>3.3 Dry-bulb temperature and invalid valuse</h3>
+attrib_eda_temp_invalid_
+
+<br><br><br><br><br><br>
+
+<p>The intitialization process resulted in <p style="color:attrib_color_;"> attrib_validation_result </p> </p>
+
+
+
+</body>
+</html>
