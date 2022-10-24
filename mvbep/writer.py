@@ -285,7 +285,7 @@ def GenerateMVBEPSummary(mvbep_state:dict,
     ## Evaluation table
     file = file.replace('<attrib_model_eval_table_>', train_outputs['training_summary'].to_html())
     ## Evaluation plots
-    # eval_plots = ''
+    eval_plots = ''
     # plots = []
     for freq in train_outputs['frequency'].keys():
         if train_outputs['frequency'][freq]['models_dict'] is not None:

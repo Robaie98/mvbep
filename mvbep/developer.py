@@ -98,28 +98,8 @@ class Developer:
         self.design_matrix_features = design_matrix_features
         self.towt_design_matrix_features = towt_design_matrix_features
 
-        #Splitting the data
-        # self.train = self.df_fin[(self.df_fin['timestamp'].dt.quarter >= quarter[0]) 
-        #                         &
-        #                          (self.df_fin['timestamp'].dt.quarter <= quarter[1]) 
-        #                         &
-        #                          (self.df_fin['timestamp'].dt.year == 2016)]
-                    
-        # self.test = self.df_fin[self.df_fin['timestamp'].dt.year == 2017 ]
-
-        # self.df_fin = pd.concat([self.train, self.test], axis=0)
-
-        # if self.timestamp_frequency == 'hourly':
-        #     self.towt_train = self.towt_design_matrix[
-        #                          (self.towt_design_matrix['timestamp'].dt.quarter >= quarter[0]) 
-        #                         &
-        #                          (self.towt_design_matrix['timestamp'].dt.quarter <= quarter[1]) 
-        #                         &
-        #                          (self.towt_design_matrix['timestamp'].dt.year == 2016)]
-
-        #     self.towt_test = self.towt_design_matrix[self.towt_design_matrix['timestamp'].dt.year == 2017 ]
-
-
+        
+        # Splitting the data into training and testing
         self.train, self.test = train_test_split(
             self.df_fin,
             test_size=self.test_size,
@@ -401,7 +381,3 @@ class Developer:
         col_names.extend([model for model in self.models_dict.keys()])
         df_plot = self.df_fin.loc[:, col_names]
         return df_plot
-
-
-    def generate_development_summary(self):
-        pass
