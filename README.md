@@ -4,7 +4,7 @@ Measurement and Verification Building Energy Prediction (MVBEP) is an open-sourc
 
 ----
 ## Usage 
-Check the [MVBEP documentation](./docs/mvbep.html) and the notebook.
+Check the [MVBEP documentation](https://htmlpreview.github.io/?https://github.com/Robaie98/mvbep/blob/master/docs/mvbep.html) and the notebook.
 
 
 
