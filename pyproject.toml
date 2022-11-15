@@ -1,0 +1,43 @@
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+
+[project]
+name = "mvbep"
+version = "1.0.0"
+authors = [{name = "Abdurahman Alrobaie", email = "robaie98@outlook.com"}]
+description = "Measurement and Verification Building Energy Prediction (MVBEP) is an open-source framework for developing data-driven models for predicting the building baseline energy consumption and estimating savings associated with retrofitting in the post-retrofit period."
+readme = "README.md"
+keywords = ["measurement and verification", "building energy modeling", "energy baseline"]
+
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python"
+]
+
+requires-python = ">=3.6"
+dependencies = [
+    "holidays>=0.14.2",
+    "joblib>=1.1.0",
+    "numpy>=1.20.3",
+    "pandas>=1.3.4",
+    "plotly>=5.7.0",
+    "schema>=0.7.5",
+    "scikit_learn>=1.1.3",
+    "shap>=0.41.0",
+    "statsmodels>=0.12.2",
+    "xgboost>=1.6.0"
+]
+
+
+[project.urls]
+repository = "https://github.com/Robaie98/mvbep"
+homepage   = "https://github.com/Robaie98/mvbep"
+
+[tool.setuptools]
+package-dir = {"" = "mvbep"}
+
+
+

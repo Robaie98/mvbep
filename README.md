@@ -15,7 +15,7 @@ The first period corresponds to a building state before performing a retrofit. I
 ## Methodology 
 The followed methodology in this package is structured into 5 modules: initialization, transformation, development, interpretation, and quantification. The Figure below shows the flowchart of the process. Each main component is converted into a module where if combined they collectively create MVBEP. 
 
-![methodology structure \label{methodology}](./figs/mvbep_struct.png)
+![methodology structure \label{methodology}](./docs/source/figs/mvbep_struct.png)
 
 ---
 ## Current State
@@ -60,10 +60,8 @@ mvbep
 |       |
 |       :----- df_post.csv: An example of post-retrofit data
 |
-:----- docs
-|       |
-|       :----- mvbep.html: The documentation for MVBEP
-|
+:----- docs : The documentation for MVBEP
+|       
 :----- figs: Figures shown in the README.md file
 |
 :----- mvbep

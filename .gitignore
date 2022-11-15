@@ -1,0 +1,7 @@
+build/
+dist/
+.vscode/
+notebooks/
+mvbep/mvbep.egg-info/
+mvbep/__pycache__/
+.ipynb_checkpoints/

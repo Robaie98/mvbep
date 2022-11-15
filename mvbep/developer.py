@@ -4,7 +4,7 @@ import timeit
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.compose import TransformedTargetRegressor
-from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.model_selection import GridSearchCV, train_test_split, TimeSeriesSplit
 from sklearn.pipeline import Pipeline
 
 
@@ -111,6 +111,14 @@ class Developer:
                 test_size=self.test_size,
                 shuffle=False
         )
+
+        # Creating a list for timeseries cross validation indices
+        if self.hyperparameter_tuning:
+            self.timestamp_folds = [] 
+            tss = TimeSeriesSplit(n_splits=5)
+            for train_indices, val_indices in tss.split(self.train):
+               self.timestamp_folds.append((train_indices, val_indices))
+
         #Adding Predictions to the dataframe for plotting
         train_len, test_len = self.train.shape[0], self.test.shape[0]
         self.df_fin['pred_type'] = np.concatenate((['acut_train']*train_len ,['acut_test']*test_len))
@@ -213,7 +221,7 @@ class Developer:
             rf_grid = GridSearchCV(
                 estimator = rf_pipe,
                 param_grid=grid_hyperparam,
-                cv = 5,
+                cv = self.timestamp_folds,
                 scoring = 'neg_root_mean_squared_error'
             )
             rf_grid.fit(train.loc[:, design_matrix_features], train['energy'])
@@ -241,7 +249,7 @@ class Developer:
             xgb_grid = GridSearchCV(
                 estimator = xgb_pipe,
                 param_grid=grid_hyperparam,
-                cv = 5,
+                cv = self.timestamp_folds,
                 scoring = 'neg_root_mean_squared_error'
             )
             xgb_grid.fit(train.loc[:, design_matrix_features], train['energy'])
@@ -269,7 +277,7 @@ class Developer:
             svr_grid = GridSearchCV(
                 estimator = svr_pipe,
                 param_grid=grid_hyperparam,
-                cv = 5,
+                cv = self.timestamp_folds,
                 scoring = 'neg_root_mean_squared_error'
             )
             svr_grid.fit(train.loc[:, design_matrix_features], train['energy'])
@@ -297,7 +305,7 @@ class Developer:
             slp_grid = GridSearchCV(
                 estimator = slp_pipe,
                 param_grid=grid_hyperparam,
-                cv = 5,
+                cv = self.timestamp_folds,
                 scoring = 'neg_root_mean_squared_error'
             )
             slp_grid.fit(train.loc[:, design_matrix_features], train['energy'])
@@ -324,7 +332,7 @@ class Developer:
         knn_grid = GridSearchCV(
             estimator = knn_pipe,
             param_grid= grid_hyperparam,
-            cv = 5,
+            cv = self.timestamp_folds,
             scoring = 'neg_root_mean_squared_error'
         )
         knn_grid.fit(train.loc[:, design_matrix_features], train['energy'])

@@ -1,16 +1,16 @@
 """
-Measurement and Verification Building Energy Prediction (MVBEP) is a `class` that encompasses different
+Measurement and Verification Building Energy Prediction (MVBEP) is a ``class`` that encompasses different
 modules for reading and validating input data to transforming such data and using them to develop regression
 models for savings estimations in the post-retrofit period. 
 
-The `class` is fitted by using `fit_training()` which takes in the required input data. Followingly, an
+The ``class`` is fitted by using :py:meth:`~mvbep.mvbep.MVBEP.fit_training()` which takes in the required input data. Followingly, an
 initialization summary is produced to check the data sufficiency requirements or the need for any actions
-to fix the input data. If the data met the requirements to build a model, the function `develop_mvbep()`
-is used to transform the data, train, and evaluate regression models. `GenerateDevelopmentSummary()` function 
+to fix the input data. If the data met the requirements to build a model, the function :py:meth:`~mvbep.mvbep.MVBEP.develop_mvbep()`
+is used to transform the data, train, and evaluate regression models. :py:meth:`~mvbep.mvbep.MVBEP.generate_development_summary()` function 
 can be used to see the summary of the development process. Finally, savings are estimated passing using post-retrofit
-data to `predict_energy_consumption()` function. The current state of the documentation covers only `MVBEP` class.
-Future additions to the project includes writing the documentation for the remaining modules (i.e. `Initializer`,
-`Transformer`, `Developer`, 'Interpreter', and 'Writer').
+data to :py:meth:`~mvbep.mvbep.MVBEP.predict_energy_consumption()` function. The current state of the documentation covers only :py:class:`~mvbep.mvbep.MVBEP` class.
+Future additions to the project includes writing the documentation for the remaining modules (i.e. :py:class:`~mvbep.Initializer.initializer`,
+:py:class:`~mvbep.transformer.Transformer`, :py:class:`~mvbep.developer.Developer`, :py:class:`~mvbep.interpreter.Interpreter`, and :py:class:`~mvbep.writer.Writer`).
 
 Please check the provided Notebooks for the package demonstration.
 
@@ -43,29 +43,28 @@ class MVBEP:
 
         Parameters
         ----------
-        mvbep_state_path : str:  (Default value = None)  
+        mvbep_state_path : str, default 'None'
             The file path for a saved MVBEP state in case the baseline creation process 
-            stopped before the final step and saved by `save_mvbep_state()`.
+            stopped before the final step and saved by :py:meth:`~mvbep.mvbep.MVBEP.save_mvbep_state()` .
 
-        Attributes
-        ----------
-        mvbep_state : dict:  
-            A python object that saves all the required information for either continuing
-            the process of MVBEP or quantifying savings when the MVBEP object is developed. 
-            [Check MVBEP state structure](??) 
+
+
+        
+
 
 
         Example
         ----------
-        In case a object of MVBEP was saved by using `save_mvbep_state` before, it can be loaded like
-        ```
-        mvbep_boulder = MVBEP(mvbep_state_path = 'mvbep_states/office-boulder_mvbep-state')
-        ```
+        In case a object of MVBEP was saved by using :py:meth:`~mvbep.mvbep.MVBEP.save_mvbep_state()`,
+        it can be loaded like
+
+        >>> mvbep_boulder = MVBEP(mvbep_state_path = 'mvbep_states/office-boulder_mvbep-state')
 
         In case there was no object saved before, an instance of MVBEP is created by
-        ```
-        mvbep_boulder = MVBEP()
-        ```
+        
+        
+        >>> mvbep_boulder = MVBEP()
+        
 
     """
     def __init__(self, mvbep_state_path:str=None):
@@ -154,44 +153,44 @@ class MVBEP:
 
         Parameters
         ----------
-        data : pd.DataFrame:   
+        data : pd.DataFrame   
             A dataframe that includes the required data which includes at least 
             
             - Timestamps in 15-min or hourly intervals
             - Energy consumption
             - Outdoor dry-bulb temperature
-        frequency : str: {'15-min', 'hourly'}
+        frequency : str, {'15-min', 'hourly'}
             The timestamps intervals frequency.
-        country_code : str: (default `None`)
-            A two-letter `str` indicating the country code in which the building resides.
-            The supported codes are listed in holiday package [documentation](https://pypi.org/project/holidays/)
-        occupancy_schedule : dict: (default `None`)
-            A `dict` indicating the general occupancy density in the building. [Check
+        country_code : str, default to 'None'
+            A two-letter ``str`` indicating the country code in which the building resides.
+            The supported codes are listed in holiday package `documentation <https://pypi.org/project/holidays/>`_
+        occupancy_schedule : dict, default to 'None'
+            A ``dict`` indicating the general occupancy density in the building. [Check
             the parameter structure ](??)
-        mismatch_date_threshold : float: (default = 0.3)
-            Sets the threshold for values in `timestamp` column that cannot be converted from `str`
-            to `datetime` object.  
-        total_missing : int: (default `None`, The value is set based on frequency)
+        mismatch_date_threshold : float, default to 0.3
+            Sets the threshold for values in ``timestamp`` column that cannot be converted from ``str``
+            to ``datetime`` object.  
+        total_missing : int, default to 'None'
             Sets a threshold for the total number of a feature's missing observations to meet 
-            data sufficiency requirements.
-        max_consec_missing : int: (default `None`, The value is set based on frequency)
+            data sufficiency requirements. The default value is set based on frequency.
+        max_consec_missing : int, default to 'None'
             Sets a threshold for consecutive missing observations in a single feature before
-            the feature is dropped.
-        n_days : int: (default 365)
-            Sets a threshold for the least number of days in `data`. 
+            the feature is dropped. The default value is set based on frequency.
+        n_days : int, default to 365
+            Sets a threshold for the least number of days in ``data`` . 
 
         Example
         ----------
         Example of a building located in Boulder, CO, USA with hourly timestamps. The instance of MVBEP
-        was created with a nmae of `mvbep_boulder`.
-        ```
-        mvbep_boulder.fit_training(
-            data = df_boulder_office, 
-            frequency = 'hourly',
-            country_code = 'US'
-        )
+        was created with a nmae of ``mvbep_boulder`` .
+        
+        >>> mvbep_boulder.fit_training(
+        ...     data = df_boulder_office, 
+        ...     frequency = 'hourly',
+        ...     country_code = 'US'
+        ... )
 
-        ```
+        
 
 
         """
@@ -236,7 +235,7 @@ class MVBEP:
     def generate_initialization_summary(self,
                                         file_name:str = None
     ):
-        """ Generates summary of the initialization performed after `fit_training()`.
+        """ Generates summary of the initialization performed after :py:meth:`~mvbep.mvbep.MVBEP.fit_training()` .
 
         The initialization summary is generated as an HTML file with highlights of the 
         initialization process including plots, descriptive data, and data sufficiency result.
@@ -244,16 +243,16 @@ class MVBEP:
 
         Parameters
         ----------
-        file_name : str: (default None)
+        file_name : str, default to 'None'
             Sets the name of the HTML initialization summary. In case no name was provided, 
-            the resulting name will be `initiation_time` + `init_sum_`.
+            the resulting name will be ``initiation_time`` + ``init_sum_`` .
 
         Example
         ----------
-        Writing the initialization summary of `mvbep_boulder` after running `fit_training()`.
-        ```
-        mvbep_boulder.generate_initialization_summary(file_name = 'mvbep_summaries/office-boulder_init-summary')
-        ```
+        Writing the initialization summary of ``mvbep_boulder`` after running :py:meth:`~mvbep.mvbep.MVBEP.fit_training()` .
+        
+        >>> mvbep_boulder.generate_initialization_summary(file_name = 'mvbep_summaries/office-boulder_init-summary')
+        
 
         """ 
         if self.mvbep_state['mvbep'] == 'NOT INITIATED':
@@ -283,47 +282,47 @@ class MVBEP:
     ):
         """ Transforms the cleaned data and develops regression models.
 
-        Takes the cleaned data after `fit_training()` and iterates over the possible transformations
+        Takes the cleaned data after :py:meth:`~mvbep.mvbep.MVBEP.fit_training()` and iterates over the possible transformations
         while using each transformation to generate regression models using the chosen modeling approaches
-        in `modeling_methods`. With each transformation, outputs such as evaluation metrics and models are 
-        saved in the MVBEP object's state (i.e. attribute `mvbep_state`).
+        in ``modeling_methods`` . With each transformation, outputs such as evaluation metrics and models are 
+        saved in the MVBEP object's state (i.e. attribute ``mvbep_state`` ).
 
         Parameters
         ----------
-        modeling_methods : dict:  (default None)
+        modeling_methods : dict,  default to 'None'
             The chosen modeling approaches to develop the baseline. In case None was passed, the argument is 
             passed by:
-        ```python
-        default_modeling_methods = {
-            'LR' : True, # TOWT (If the frequency is hourly otherwise it is WLS)
-            'RF' : True, # Random Regression Forest
-            'XGB': True, # Extreme Gradient Boosting
-            'SVR': True, # Support Vector Regressor
-            'SLP': True, # Feed Forward Neural Network
-            'KNN': True  # K-Nearest Neighbor
-        }
-        ```
-        test_size : float: (default 0.2)
+
+            >>> default_modeling_methods = {
+            ...     'LR' : True, # TOWT (If the frequency is hourly otherwise it is WLS)
+            ...     'RF' : True, # Random Regression Forest
+            ...     'XGB': True, # Extreme Gradient Boosting
+            ...     'SVR': True, # Support Vector Regressor
+            ...     'SLP': True, # Feed Forward Neural Network
+            ...     'KNN': True  # K-Nearest Neighbor
+            ... }
+
+        test_size : float, default to 0.2
             Sets the testing set size out of the input data.
-        hyperparameter_tuning : bool: (defalut False)
-            
-            - If True: the hyperparameter tuning process is performed for any model with hyperparameters to
-            be tuned. 
-            - If False: No hyperparameter tuning process is performed (except for KNN). 
-        ranking_method : str: {'min_cvrmse', 'min_nmbe'} (default 'min_cvrmse')
+        hyperparameter_tuning : bool, defalut to ``False``
+
+            - If ``True`` : the hyperparameter tuning process is performed for any model with hyperparameters to be tuned.
+            - If ``False`` : No hyperparameter tuning process is performed (except for KNN).
+
+        ranking_method : str, {'min_cvrmse', 'min_nmbe'}, default to 'min_cvrmse'
             Sets the ranking method to choose the best model based on the testing set evaluation.
 
-            - If 'min_cvrmse': The best model is selected based on Coefficient of Variation of Root Mean
-            Squared Error (CV(RMSE))
+            - If ``min_cvrmse`` : The best model is selected based on Coefficient of Variation of Root Mean Squared Error (CV(RMSE))
             - If 'min_nmbe': The best model is selected based on Normalized Mean Bias Error (NMBE).
 
 
         Example
         ----------
-        Developing `mvbep_boulder` after running `fit_training()` 
-        ```
-        mvbep_boulder.develop_mvbep()
-        ```
+
+        Developing ``mvbep_boulder`` after running :py:meth:`~mvbep.mvbep.MVBEP.fit_training()` . 
+        
+        >>> mvbep_boulder.develop_mvbep()
+        
 
 
         """ 
@@ -416,22 +415,23 @@ class MVBEP:
     def generate_development_summary(self,
                                     file_name:str = None
     ):
-        """ Generates development summary after using `develop_mvbep()`.
+        """ Generates development summary after using :py:meth:`~mvbep.mvbep.MVBEP.develop_mvbep()`.
 
-        Outputs an HTML file that summarizes the development process after running `develop_mvbep()`  
+        Outputs an HTML file that summarizes the development process after running 
+        :py:meth:`~mvbep.mvbep.MVBEP.develop_mvbep()`.  
 
         Parameters
         ----------
-        file_name : str: (default None)
+        file_name : str, default to 'None'
             Sets the name of the HTML development summary. In case no name was provided, 
-            the resulting name will be `initiation_time` + `dev_sum_`.
+            the resulting name will be ``initiation_time`` + ``dev_sum_``.
 
         Example
-        ----------
-        Writing the initialization summary of `mvbep_boulder` after running `develop_mvbep()`.
-        ```
-        mvbep_boulder.generate_development_summary(file_name = 'mvbep_summaries/office-boulder_dev-summary')
-        ```
+        -------
+        Writing the initialization summary of `mvbep_boulder` after running :py:meth:`~mvbep.mvbep.MVBEP.develop_mvbep()`.
+        
+        >>> mvbep_boulder.generate_development_summary(file_name = 'mvbep_summaries/office-boulder_dev-summary')
+        
 
 
         """ 
@@ -443,20 +443,20 @@ class MVBEP:
                                  mvbep_state = self.mvbep_state)
 
     def save_mvbep_state(self, file_name:str=None):
-        """ Saves the current progress of the MVBEP object by storing `mvbep_state`.
+        """ Saves the current progress of the MVBEP object by storing ``mvbep_state``.
 
         Parameters
         ----------
-        file_name : str: (default None)
-            Sets the name of the `Joblib` state file. In case no name was provided, 
-            the resulting name will be `initiation_time` + `mvbep_state`.
+        file_name : str, default to 'None'
+            Sets the name of the ``Joblib`` state file. In case no name was provided, 
+            the resulting name will be ``initiation_time`` + ``mvbep_state``.
             
-        Example
+        Example 
         ----------
-        Saving the state of either an initiated MVBEP by `fit_training()` or a developed one by `develop_mvbep()`.
-        ```
-        mvbep.save_state('mvbep_states/office-boulder_mvbep-state')
-        ```
+        Saving the state of either an initiated MVBEP by :py:meth:`~mvbep.mvbep.MVBEP.fit_training()` or a developed one by :py:meth:`~mvbep.mvbep.MVBEP.develop_mvbep()`.
+        
+        >>> mvbep.save_state('mvbep_states/office-boulder_mvbep-state')
+        
 
 
         """ 
@@ -472,47 +472,49 @@ class MVBEP:
                     total_missing = None,
                     max_consec_missing = None
         ):
-        """ Generates savings quantification summary after using `develop_mvbep()`.
+        """ Generates savings quantification summary after using :py:meth:`~mvbep.mvbep.MVBEP.develop_mvbep()`.
 
-        Outputs an HTML file that summarizes the quantification process after running `develop_mvbep().`
-        The quantification process requires post-retrofit data that matches the same frequency and features
-        of the data used in initialization when running `fit_training()`. Features that was dropped in the
-        initialization process are not required in the post-retrofit data. To see which features passed the 
-        initialization process, check the output of `generate_initialization_summary()`.
+        Outputs an HTML file that summarizes the quantification process after running 
+        :py:meth:`~mvbep.mvbep.MVBEP.develop_mvbep()`. The quantification process requires post-retrofit
+        data that matches the same frequency and features of the data used in initialization when running
+        :py:meth:`~mvbep.mvbep.MVBEP.fit_training()`. Features that was dropped in the initialization
+        process are not required in the post-retrofit data. To see which features passed the 
+        initialization process, check the output of :py:meth:`~mvbep.mvbep.MVBEP.generate_initialization_summary()`.
 
         Parameters
         ----------
-        data :pd.DataFrame 
+        data : pd.DataFrame
             The post-retrofit data.
-        generate_summary :bool: (default False)
-            Either generates a summary in an HTML file or return a `list` of baseline energy consumption.
-            In case the passed `data` does not meet the requirements, an initialization summary is generated
-            regardless of the passed argument in `generate_summary`.
+        generate_summary :bool, default to False
+            Either generates a summary in an HTML file or return a ``list`` of baseline energy consumption.
+            In case the passed ``data`` does not meet the requirements, an initialization summary is generated
+            regardless of the passed argument in ``generate_summary``.
 
-            - If True: A quantification summary is provided. The function does not return any object.
-            - If False: A list of baseline energy consumption for the provided post-retrofit period is 
-            returend.  
-        file_name : str: (default None)
+            - If ``True``: A quantification summary is provided. The function does not return any object.
+            - If ``False``: A list of baseline energy consumption for the provided post-retrofit period is 
+              returend.  
+
+        file_name : str, default to 'None'
             Sets the name of the HTML quantification summary. In case no name was provided, 
-            the resulting name will be `initiation_time` + `quant_sum_`.
-        mismatch_date_threshold : float: (default = 0.3)
-            Sets the threshold for values in `timestamp` column that cannot be converted from `str`
-            to `datetime` object.  
-        total_missing : int: (default `None`, The value is set based on frequency)
+            the resulting name will be ``initiation_time`` + ``quant_sum_``.
+        mismatch_date_threshold : float, default to 0.3
+            Sets the threshold for values in `timestamp` column that cannot be converted from ``str``
+            to ``pd.datetime`` object.  
+        total_missing : int, default to 'None'
             Sets a threshold for the total number of a feature's missing observations to meet 
-            data sufficiency requirements.
-        max_consec_missing : int: (default `None`, The value is set based on frequency)
+            data sufficiency requirements. The value is set based on frequency.
+        max_consec_missing : int, default to 'None'
             Sets a threshold for consecutive missing observations in a single feature before
-            the feature is dropped. 
+            the feature is dropped. The value is set based on frequency.
 
         Example
         ----------
-        Writing the quantification summary of `mvbep_boulder`.
-        ```
-        mvbep_boulder.predict_energy_consumption(data = df_boulder_post_retrofit,
-                                                generate_summary = True,
-                                                file_name='mvbep_summaries/office-boulder_dev-summary')
-        ```
+        Writing the quantification summary of ``mvbep_boulder``.
+        
+        >>> mvbep_boulder.predict_energy_consumption(data = df_boulder_post_retrofit,
+        ...                                         generate_summary = True,
+        ...                                         file_name='mvbep_summaries/office-boulder_dev-summary')
+        
 
 
         """ 
