@@ -5,3 +5,5 @@ notebooks/
 mvbep/mvbep.egg-info/
 mvbep/__pycache__/
 .ipynb_checkpoints/
+mvbep/__pycache__/developer.cpython-39.pyc
+mvbep/__pycache__/mvbep.cpython-39.pyc
