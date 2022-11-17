@@ -377,14 +377,12 @@ class MVBEP:
                                 test_size               = test_size,
                                 hyperparameter_tuning   = hyperparameter_tuning,
                                 ranking_method          = ranking_method)
-            self.trans_df_cehck = transformer.df_fin
-            self.feat_check = transformer.design_matrix_features
+
             developer.fit(data                      = transformer.df_fin,
                         timestamp_frequency         = freq,
                         towt_design_matrix          = transformer.towt_design_matrix,
                         design_matrix_features      = transformer.design_matrix_features,
-                        towt_design_matrix_features = transformer.towt_design_matrix_features#,
-                        #quarter=quarter
+                        towt_design_matrix_features = transformer.towt_design_matrix_features
                         )
             
             
@@ -561,9 +559,11 @@ class MVBEP:
         best_model = self.mvbep_state['mvbep']['best_model']
         pred_pipeline = self.mvbep_state['developer']['training_outputs']['frequency'][best_frequency]['models_dict'][best_model]['model']['pipe']
         if best_model == 'LR_towt':
-            baseline_pred = pred_pipeline.predict(transformer.design_matrix_features)
+            prediction_features = self.mvbep_state['transformer']['design_matrices_features']['towt']
+            baseline_pred = pred_pipeline.predict(transformer.towt_design_matrix.loc[:, prediction_features])
         else: 
-            baseline_pred = pred_pipeline.predict(transformer.df_fin.loc[:, transformer.design_matrix_features])
+            prediction_features = self.mvbep_state['transformer']['design_matrices_features'][best_frequency]
+            baseline_pred = pred_pipeline.predict(transformer.df_fin.loc[:, self.mvbep_state['transformer']['design_matrices_features'][best_frequency]])
         
         # Savings
         df_savings = transformer.df_fin.copy()
@@ -577,10 +577,8 @@ class MVBEP:
                                                                 global_sample_size=1,
                                                                 local_sample_size=df_savings.shape[0],
                                                                 df_input = df_savings,
-                                                                design_matrix_features= transformer.design_matrix_features)
+                                                                design_matrix_features= prediction_features)
                 df_savings = local_shap_values
-
-        # return df_savings
 
         # Summary 
         if generate_summary:

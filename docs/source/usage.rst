@@ -3,25 +3,27 @@ Package Usage
 
 Installation
 ------------
-The package has not been published on PyPI. To use the package, clone the `GitHub repository <github.com/Robaie98/mvbep>`_ and use the package as described by the documentation and as shown in the example `Jupyter Notebook <https://github.com/Robaie98/mvbep/blob/master/mvbep_example.ipynb>`_ until the package is published. 
+The package is published on PyPI. 
 
-.. >>> $ pip install mvbep
+:: 
+  
+  $ pip install mvbep
 
 Requirements
 ++++++++++++
 
 ::
 
-   holidays==0.14.2
-   joblib==1.1.0
-   numpy==1.20.3
-   pandas==1.3.4
-   plotly==5.7.0
+   holidays>=0.14.2
+   joblib>=1.1.0
+   numpy>=1.20.3
+   pandas>=1.3.4
+   plotly>=5.7.0
    schema==0.7.5
-   scikit_learn==1.1.2
-   shap==0.41.0
-   statsmodels==0.12.2
-   xgboost==1.6.0
+   scikit_learn>=1.0.2
+   shap>=0.41.0
+   statsmodels>=0.12.2
+   xgboost>=1.6.0
 
 
 

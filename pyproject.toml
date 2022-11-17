@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mvbep"
-version = "1.0.0"
+version = "0.0.1"
 authors = [{name = "Abdurahman Alrobaie", email = "robaie98@outlook.com"}]
 description = "Measurement and Verification Building Energy Prediction (MVBEP) is an open-source framework for developing data-driven models for predicting the building baseline energy consumption and estimating savings associated with retrofitting in the post-retrofit period."
 readme = "README.md"
@@ -24,7 +24,7 @@ dependencies = [
     "numpy>=1.20.3",
     "pandas>=1.3.4",
     "plotly>=5.7.0",
-    "schema>=0.7.5",
+    "schema==0.7.5",
     "scikit_learn>=1.0.2",
     "shap>=0.41.0",
     "statsmodels>=0.12.2",
@@ -34,9 +34,13 @@ dependencies = [
 
 [project.urls]
 repository = "https://github.com/Robaie98/mvbep"
+documentation = "https://mvbep.readthedocs.io/en/latest/"
+
+
+
 
 [tool.setuptools]
-package-dir = {"" = "mvbep"}
+package-dir = {"mvbep" = "mvbep"}
 
 
 

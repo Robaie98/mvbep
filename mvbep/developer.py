@@ -113,11 +113,10 @@ class Developer:
         )
 
         # Creating a list for timeseries cross validation indices
-        if self.hyperparameter_tuning:
-            self.timestamp_folds = [] 
-            tss = TimeSeriesSplit(n_splits=5)
-            for train_indices, val_indices in tss.split(self.train):
-               self.timestamp_folds.append((train_indices, val_indices))
+        self.timestamp_folds = [] 
+        tss = TimeSeriesSplit(n_splits=5)
+        for train_indices, val_indices in tss.split(self.train):
+           self.timestamp_folds.append((train_indices, val_indices))
 
         #Adding Predictions to the dataframe for plotting
         train_len, test_len = self.train.shape[0], self.test.shape[0]

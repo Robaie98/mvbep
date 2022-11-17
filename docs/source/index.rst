@@ -3,18 +3,32 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+|PyPI|
+|Documentation Status|
+|Google Colab|
+
+.. |Documentation Status| image:: https://readthedocs.org/projects/mvbep/badge/?version=latest
+   :target: https://mvbep.readthedocs.io/en/latest/?badge=latest
+
+
+.. |Google Colab| image:: https://colab.research.google.com/assets/colab-badge.svg
+   :target: https://colab.research.google.com/drive/1y5Z5ieZ-RjXWEl0i1j1OuXL8fYRUOJBb?usp=sharing
+
+.. |PyPI| image:: https://img.shields.io/badge/PyPI-1.0.0-brightgreen
+   :target: https://pypi.org/project/mvbep/
+
 Welcome to MVBEP's documentation!
 =================================
 
 MVBEP
------
+=====
 
 Measurement and Verification Building Energy Prediction (MVBEP) is an
 open-source framework for developing data-driven models for predicting
 the building baseline energy consumption and estimating savings
 associated with retrofitting in the post-retrofit period.
 
-
+----------
 
 Background
 ----------
@@ -46,33 +60,137 @@ However, to generate the baseline behavior, the building must be modeled
 on historical data. The approach highlighted in the package aims to
 build that baseline by using regression models.
 
-Current State
--------------
+--------------
 
-The package is still under development. The following are still not
-finalized - Documentation: The documentation of ``MVBEP`` is finished
-which is the only thing required to use the framework. The documentation
-of the remaining modules is still not finished.
+Methodology
+-----------
 
--  Comprehensive Examples: The Jupyter notebook called ``mvbep_example``
-   shows a simple example of the framework along with all reports as
-   shown in ``docs`` file.
+The followed methodology in this package is structured into 5 modules:
+initialization, transformation, development, interpretation, and
+quantification. The Figure below shows the flowchart of the process.
+Each main component is converted into a module which when they are
+combined, they create MVBEP.
 
-Requirements
-------------
+.. figure:: ./figs/mvbep_struct.png
+   :alt: Structure :raw-latex:`\label{mvbep_struct}`
+
+--------------
+
+Getting Started
+---------------
+
+MVBEP is uploaded to PyPI and can be installed by pip
 
 ::
 
-   holidays==0.14.2
-   joblib==1.1.0
-   numpy==1.20.3
-   pandas==1.3.4
-   plotly==5.7.0
+   $ pip install mvbep
+
+Requirements
+~~~~~~~~~~~~
+
+The following are the requirements to run MVBEP:
+::
+   
+   holidays>=0.14.2
+   joblib>=1.1.0
+   numpy>=1.20.3
+   pandas>=1.3.4
+   plotly>=5.7.0
    schema==0.7.5
-   scikit_learn==1.1.2
-   shap==0.41.0
-   statsmodels==0.12.2
-   xgboost==1.6.0
+   scikit_learn>=1.0.2
+   shap>=0.41.0
+   statsmodels>=0.12.2
+   xgboost>=1.6.0
+
+The usage of the package is described in the `package
+documentation <https://readthedocs.org/projects/mvbep/badge/?version=latest>`__.
+The basic usage of the package is illustrated in a `Google Colab
+notebook <https://colab.research.google.com/drive/1y5Z5ieZ-RjXWEl0i1j1OuXL8fYRUOJBb?usp=sharing>`__.
+
+--------------
+
+Future Development
+------------------
+
+The current version of the package (i.e. 1.0.0) supports multiple tasks
+that automate the process of building a M&V baseline. The following are
+enhancements to be added to the package in the future along with minor
+missing aspects:
+
+-  **Documentation**: The documentation of ``MVBEP`` describes the basic
+   and advanced usage of the package. In addition, it describes the
+   functions of the ``MVBEP`` module which combines all the necessary
+   modules to build the baseline. The documentation of the remaining
+   modules is still not finished.
+
+-  **Goodness-of-Fit (GOF)**: The package uses the Coefficient of
+   Variation of Root Mean Squared Errors (CV(RMSE)) and the Normalized
+   Mean Bias Error (NMBE) with CV(RMSE) being the default evaluation
+   metric to choose the best modeling approach. The GOF metric combines
+   both CV(RMSE) and NMBE which will be introduced in the next releases.
+
+-  **Reports Generation**: The package uses static HTML files to
+   summarize the output of each important phase in the development of an
+   ``MVBEP`` object. The next releases will utilize a single interactive
+   file that summarizes the information of all the phases rather than
+   generating multiple files.
+
+-  **Testing**: The package is just tested manually on a local Jupyter
+   notebook and in Google Colab. The package will include automated
+   tests in the future to better describe the performance.
+
+--------------
+
+Repository Structure
+--------------------
+
+:: 
+   
+   mvbep
+   |
+   :----- data
+   |       |
+   |       :----- df_pre.csv: An example of pre-retrofit data.
+   |       |
+   |       :----- df_post.csv: An example of post-retrofit data.
+   |
+   :----- docs : The documentation for MVBEP.
+   |       
+   :----- mvbep
+   |       |
+   |       :----- templates: folder containing html templates for reports generation.
+   |       |
+   |       :----- developer.py: Builds and evaluates regression models.
+   |       |
+   |       :----- transformer.py: Converts cleaned data to training and testing data.
+   |       |
+   |       :----- initializer.py: Checks the format and data requirements to develop a MVBEP model.
+   |       |
+   |       :----- interpreter.py: Ouputs interpretation of the devloped regression models.
+   |       |
+   |       :----- mvbep.py: A module that encompasses all the models into one streamlined proccess.
+   |       |
+   |       :----- writer.py: A module that writes HTML reports using templates.
+   |       |
+   |       :----- towt_utils.py: A file containing necessary functions to create TOWT dataset.
+   |
+   :----- outputs
+   |       |
+   |       :----- development_summary.html: An example of the development summary using mvbep_example notebook.
+   |       |
+   |       :----- initialization_summary.html: An example of the initialization summary using mvbep_example notebook.
+   |       |
+   |       :----- quantification_summary.html: An example of the quantification summary using mvbep_example notebook.
+   |       
+
+--------------
+
+License
+-------
+
+This package is licensed under `MIT License <LICENSE>`__.
+
+--------------
 
 References
 ----------
@@ -80,6 +198,7 @@ References
 -  Alrobaie A, Krarti M. A Review of Data-Driven Approaches for
    Measurement and Verification Analysis of Building Energy Retrofits.
    Energies. 2022; 15(21):7824. https://doi.org/10.3390/en15217824
+
 
 
 .. toctree::

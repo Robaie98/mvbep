@@ -3,7 +3,7 @@ import numpy as np
 import shap 
 from sklearn.model_selection import train_test_split
 from .transformer import Transformer
-import html
+import warnings
 
 
 def prepare_interpretation_data(mvbep_state:dict):
@@ -48,6 +48,9 @@ def return_interpretation_data(mvbep_state:dict,
         global_sample_values = df_input.head(1).copy()
         local_sample_values = df_input.copy()
         features = design_matrix_features
+
+    # Ignoring SHAP warnings. For some reason it outputs warnings for things inside the SHAP package.  
+    warnings.filterwarnings("ignore")
     
     # Fitting an explainer
     explainer = shap.KernelExplainer(pipe.predict, global_sample_values.loc[:, features].sample(1))
