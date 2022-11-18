@@ -46,7 +46,7 @@ statsmodels>=0.12.2
 xgboost>=1.6.0
 ```
 
-The usage of the package is described in the [package documentation](https://readthedocs.org/projects/mvbep/badge/?version=latest). The basic usage of the package is illustrated in a [Google Colab notebook](https://colab.research.google.com/drive/1y5Z5ieZ-RjXWEl0i1j1OuXL8fYRUOJBb?usp=sharing). 
+The usage of the package is described in the [package documentation](https://mvbep.readthedocs.io/en/latest/?badge=latest). The basic usage of the package is illustrated in a [Google Colab notebook](https://colab.research.google.com/drive/1y5Z5ieZ-RjXWEl0i1j1OuXL8fYRUOJBb?usp=sharing). 
 
 
 ---
